@@ -9,22 +9,28 @@ public class Kontrola : MonoBehaviour
 
     public GameObject prijateljskiProjektil;
 
-    public int maxEnergija = 10; //koliko energije igrac ukupno ima dostupno, velicina spremnika
-    public int trenutnaEnergija = 10; //koliko trenutno energije ima igrac
-    public float brzinaPunjenjaEnergije = 1f; //koliko sekundi da se napuni jedna energija (u sekundama)
-    private Image energijaI; //slika energije ili "bara" koji se smanjuje ili povecava ovisno o dostupnoj energiji
+    public Image kuglaSprite;
+    public Image zrakaSprite;
+    public Image repetitorSprite;
+    public Image sacmaSprite;
+
+    public int maxEnergija = 10;
+    public int trenutnaEnergija = 10;
+    public float brzinaPunjenjaEnergije = 1f;
+    private Image energijaI;
     private Text energijaT;
 
     private int modPucanja = 0;
     private int snagaPucanja = 0;
 
-    private int maxZdravlje = 10;
+    private int maxZdravlje = 4;
     private int trenutnoZdravlje = 4;
     private Image zdravljeI;
     private Text zdravljeT;
 
     private int maxBombi = 5;
     private int brojBombi = 1;
+    private Text bombeT;
 
     private float vrijeme = 0;
 
@@ -36,8 +42,12 @@ public class Kontrola : MonoBehaviour
         energijaT = GameObject.Find("ENERGYvrijednost").GetComponent<Text>();
         OsvjeziEnergiju();
 
-        zdravljeI = GameObject.Find("ENERGYbar").GetComponent<Image>();
-        zdravljeT = GameObject.Find("ENERGYvrijednost").GetComponent<Text>();
+        zdravljeI = GameObject.Find("HPbar").GetComponent<Image>();
+        zdravljeT = GameObject.Find("HPvrijednost").GetComponent<Text>();
+        OsvjeziZdravlje();
+
+        bombeT = GameObject.Find("BOMBvrijednost").GetComponent<Text>();
+        OsvjeziBombe();
     }
 
     // Update is called once per frame
@@ -84,7 +94,7 @@ public class Kontrola : MonoBehaviour
                     }
                 case 1:
                     {
-                        PucajZaku();
+                        PucajZraku();
                         break;
                     }
                 case 2:
@@ -137,7 +147,13 @@ public class Kontrola : MonoBehaviour
 
     private void OsvjeziZdravlje()
     {
+        zdravljeI.fillAmount = (float)trenutnoZdravlje / maxZdravlje;
+        zdravljeT.text = trenutnoZdravlje.ToString();
+    }
 
+    private void OsvjeziBombe()
+    {
+        bombeT.text = brojBombi.ToString();
     }
 
     //mod 0
@@ -146,32 +162,44 @@ public class Kontrola : MonoBehaviour
         if (trenutnaEnergija > 0)
         {
             GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-            projektil.name = "Projektil";
+            projektil.name = "Projektil-obican";
             trenutnaEnergija--;
             OsvjeziEnergiju();
         }
     }
 
     //mod 1
-    private void PucajZaku()
+    private void PucajZraku()
     {
-
+        //do stuff make zap
+        OsvjeziEnergiju();
     }
 
     //mod 2
     private void PucajRepetitor()
     {
-
+        //mozda se stvori gameobject sa skriptom koja puca burst i unisti se kada zavrsi
+        //ovdje bi se samo provjeravalo da li postoji gameobject koji puca taj određeni tip oruzja (u ovom slucaju burst - repetitor)
+        if (trenutnaEnergija > 2)
+        {
+            GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+            projektil.name = "Projektil-repetitor";
+            trenutnaEnergija -= 2;
+            OsvjeziEnergiju();
+        }
     }
 
     //mod 3
     private void PucajSacmu()
     {
-
+        //do stuff make kerblam
+        OsvjeziEnergiju();
     }
 
     private void PucajBombu()
     {
-
+        //do stuff make skadsoosh
+        brojBombi--;
+        OsvjeziBombe();
     }
 }
