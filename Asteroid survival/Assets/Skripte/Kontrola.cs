@@ -162,6 +162,13 @@ public class Kontrola : MonoBehaviour
         if (trenutnaEnergija > 0)
         {
             GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+
+            //test scatter vektora
+            Debug.DrawLine(GameObject.Find("Igrac").transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.white, 2);
+            Vector3 novi_vektor = Quaternion.AngleAxis(15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.DrawLine(GameObject.Find("Igrac").transform.position, novi_vektor, Color.red, 2);
+
+
             projektil.name = "Projektil-obican";
             trenutnaEnergija--;
             OsvjeziEnergiju();
