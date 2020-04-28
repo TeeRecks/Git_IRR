@@ -67,6 +67,7 @@
     <Compile Include="Assets\Skripte\Kontroler_Igre.cs" />
     <Compile Include="Assets\Skripte\ponasanjeAsteroida.cs" />
     <Compile Include="Assets\Skripte\ponasanjeProjektila.cs" />
+    <Compile Include="Assets\Skripte\ponasanjeStita.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Ivan/Desktop/FAKS/Izrada računalnih igara/Git_IRR/Asteroid survival/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
