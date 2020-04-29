@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4122658155132277797}
   - component: {fileID: 4122658155132277796}
   - component: {fileID: 84460366996182626}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StitGL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

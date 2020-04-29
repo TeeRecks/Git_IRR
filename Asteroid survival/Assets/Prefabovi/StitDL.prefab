@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2575282660329127131}
   - component: {fileID: 2575282660329127130}
   - component: {fileID: 1992757146928627356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StitDL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

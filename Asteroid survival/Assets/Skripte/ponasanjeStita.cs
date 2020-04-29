@@ -9,6 +9,8 @@ public class ponasanjeStita : MonoBehaviour
     private int maxZdravlje = 4;
     private int trenutnoZdravlje = 4;
 
+    private bool ukljucenRegeneracija = false;
+
     //testni
     private bool wave = false;
 
@@ -23,24 +25,28 @@ public class ponasanjeStita : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        //testni gumb
+        if (Input.GetKeyDown(KeyCode.Q) && trenutnoZdravlje > 0)
         {
             wave = false;
             trenutnoZdravlje--;
             OsvjeziStit();
         }
 
+        //testni gumb
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (wave)
             {
                 wave = false;
                 trenutnoZdravlje = maxZdravlje;
+                gameObject.GetComponent<EdgeCollider2D>().enabled = true;
                 OsvjeziStit();
             }
             else
             {
                 wave = true;
+                gameObject.GetComponent<EdgeCollider2D>().enabled = true;
                 trenutnoZdravlje = maxZdravlje;
             }
         }
@@ -59,6 +65,16 @@ public class ponasanjeStita : MonoBehaviour
         if (x == 0)
         {
             rend.material.color = new Color(0,0,0,0);
+        }
+    }
+
+    public void SmanjiStit()
+    {
+        trenutnoZdravlje--;
+        OsvjeziStit();
+        if (trenutnoZdravlje == 0)
+        {
+            gameObject.GetComponent<EdgeCollider2D>().enabled = false;
         }
     }
 

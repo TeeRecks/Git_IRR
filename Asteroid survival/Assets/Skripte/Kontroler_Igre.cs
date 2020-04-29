@@ -46,7 +46,7 @@ public class Kontroler_Igre : MonoBehaviour
             float b = Mathf.Cos(kut) * udaljenost;
             //121 = Mathf.Pow(a, 2) + Mathf.Pow(b, 2);
             //121 - Mathf.Pow(b, 2) = Mathf.Pow(a, 2);
-            float a = Mathf.Sqrt(udaljenost*udaljenost - Mathf.Pow(b, 2));
+            float a = Mathf.Sqrt(udaljenost * udaljenost - Mathf.Pow(b, 2));
             if (Random.value > 0.5f) a *= -1;
             Instantiate(asteroid_prefab, pozicija + new Vector3(a, b, 0), Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
         }

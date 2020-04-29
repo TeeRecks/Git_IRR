@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scene/Meni.unity
+    guid: 9c1c8b222966a0041ad10347b2af9503
+  - enabled: 1
     path: Assets/Scene/Igra.unity
     guid: eb72a44c800eccb418da33706e789c41
+  - enabled: 1
+    path: Assets/Scene/Kraj.unity
+    guid: 332de4f233418c54899dce786dd1bb2a
   m_configObjects: {}

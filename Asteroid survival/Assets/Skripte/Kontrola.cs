@@ -34,6 +34,8 @@ public class Kontrola : MonoBehaviour
 
     private float vrijeme = 0;
 
+    private Master master;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,8 @@ public class Kontrola : MonoBehaviour
 
         bombeT = GameObject.Find("BOMBvrijednost").GetComponent<Text>();
         OsvjeziBombe();
+
+        master = GameObject.Find("Master").GetComponent<Master>();
     }
 
     // Update is called once per frame
@@ -135,7 +139,7 @@ public class Kontrola : MonoBehaviour
         //ESC exit
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            master.Izlaz();
         }
     }
 
@@ -161,7 +165,7 @@ public class Kontrola : MonoBehaviour
     {
         if (trenutnaEnergija > 0)
         {
-            GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+            Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
 
             //test scatter vektora
             Debug.DrawLine(GameObject.Find("Igrac").transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.white, 2);
@@ -169,7 +173,6 @@ public class Kontrola : MonoBehaviour
             Debug.DrawLine(GameObject.Find("Igrac").transform.position, novi_vektor, Color.red, 2);
 
 
-            projektil.name = "Projektil-obican";
             trenutnaEnergija--;
             OsvjeziEnergiju();
         }
@@ -208,5 +211,18 @@ public class Kontrola : MonoBehaviour
         //do stuff make skadsoosh
         brojBombi--;
         OsvjeziBombe();
+    }
+
+    public void SmanjiZdravlje()
+    {
+        trenutnoZdravlje--;
+        OsvjeziZdravlje();
+        if (trenutnoZdravlje == 0)
+        {
+            master.Kraj();
+            //da li treba biti gameObject u sredini?
+            //Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
+
+        }
     }
 }
