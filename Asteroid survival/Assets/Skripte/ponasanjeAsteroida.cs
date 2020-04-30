@@ -47,22 +47,22 @@ public class ponasanjeAsteroida : MonoBehaviour
         //šansa drop powerup
         if (Random.value < dropChance)
         {
-            int odabirDrop = Random.Range(0, 6);
-
+            int odabirPickup = Random.Range(0, 7);
+            master.StvoriPickup(odabirPickup);
         }
 
         if (collision.GetComponent<ponasanjeProjektila>() != null)
         {
             ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
             //dodaj 20
-            master.UvecajBodove(20);
+            master.UvecajBodove(100);
             projektil.UnistiProjektil();
         }
         if (collision.GetComponent<ponasanjeStita>() != null)
         {
             ponasanjeStita stit = collision.gameObject.GetComponent<ponasanjeStita>();
             //dodaj 5
-            master.UvecajBodove(5);
+            master.UvecajBodove(15);
             stit.SmanjiStit();
         }
         if (collision.GetComponent<Kontrola>() != null)

@@ -9,17 +9,22 @@ public class Master : MonoBehaviour
     private Text plocaBodova;
     private int bodovi;
 
+    private float vrijeme;
+
     // Start is called before the first frame update
     void Start()
     {
-        plocaBodova = GameObject.Find("SCORE").GetComponent<Text>();
-        plocaBodova.text = "0";
+        if (SceneManager.GetActiveScene().name == "Igra")
+        {
+            plocaBodova = GameObject.Find("SCORE").GetComponent<Text>();
+            plocaBodova.text = "0";
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        vrijeme += Time.deltaTime;
     }
 
     public void UvecajBodove(int dobiveni_bodovi)
@@ -28,8 +33,14 @@ public class Master : MonoBehaviour
         plocaBodova.text = bodovi.ToString();
     }
 
+    public void StvoriPickup(int pickup)
+    {
+
+    }
+
     public void Meni()
     {
+        PlayerPrefs.SetInt("bodovi", 0);
         SceneManager.LoadScene("Meni");
     }
 
@@ -40,6 +51,9 @@ public class Master : MonoBehaviour
 
     public void Kraj()
     {
+        int konacniBodovi = (Mathf.FloorToInt(vrijeme) * 5) + bodovi;
+        PlayerPrefs.SetInt("bodovi", konacniBodovi);
+        PlayerPrefs.SetInt("vrijeme", Mathf.FloorToInt(vrijeme));
         SceneManager.LoadScene("Kraj");
     }
 

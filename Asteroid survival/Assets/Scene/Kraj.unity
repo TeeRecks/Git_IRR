@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 971110862}
   - component: {fileID: 971110864}
   - component: {fileID: 971110863}
+  - component: {fileID: 971110865}
   m_Layer: 5
   m_Name: VrijednostRezultata
   m_TagString: Untagged
@@ -463,6 +464,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971110861}
   m_CullTransparentMesh: 0
+--- !u!114 &971110865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971110861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b7a576067758f47b99a83044a417dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1180396805
 GameObject:
   m_ObjectHideFlags: 0

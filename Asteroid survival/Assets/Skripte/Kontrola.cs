@@ -8,6 +8,7 @@ public class Kontrola : MonoBehaviour
     public float brzinaKretanja = 3f;
 
     public GameObject prijateljskiProjektil;
+    private float brzinaProjektila = 10f;
 
     public Image kuglaSprite;
     public Image zrakaSprite;
@@ -21,7 +22,8 @@ public class Kontrola : MonoBehaviour
     private Text energijaT;
 
     private int modPucanja = 0;
-    private int snagaPucanja = 0;
+    private int snagaPucanja = 1;
+    private int cijenaPucanja = 1;
 
     private int maxZdravlje = 4;
     private int trenutnoZdravlje = 4;
@@ -52,6 +54,9 @@ public class Kontrola : MonoBehaviour
         OsvjeziBombe();
 
         master = GameObject.Find("Master").GetComponent<Master>();
+
+        //testiranje mijenjanje boje
+        //GameObject.Find("testP").GetComponent<Renderer>().material.color = Color.yellow;
     }
 
     // Update is called once per frame
@@ -87,8 +92,11 @@ public class Kontrola : MonoBehaviour
         }
 
         //m1 pucanje
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && trenutnaEnergija >= cijenaPucanja && GameObject.Find("Pucanje") == null)
         {
+            
+            trenutnaEnergija -= cijenaPucanja;
+            OsvjeziEnergiju();
             switch (modPucanja)
             {
                 case 0:
@@ -103,7 +111,7 @@ public class Kontrola : MonoBehaviour
                     }
                 case 2:
                     {
-                        PucajRepetitor();
+                        StartCoroutine(PucajRepetitor());
                         break;
                     }
                 case 3:
@@ -117,8 +125,6 @@ public class Kontrola : MonoBehaviour
                         break;
                     }
             }
-
-
 
 
             //dodati vise vrsta napada..ball, x second beam, burst, shotgun (spread)
@@ -160,52 +166,6 @@ public class Kontrola : MonoBehaviour
         bombeT.text = brojBombi.ToString();
     }
 
-    //mod 0
-    private void PucajKuglu()
-    {
-        if (trenutnaEnergija > 0)
-        {
-            Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-
-            //test scatter vektora
-            Debug.DrawLine(GameObject.Find("Igrac").transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.white, 2);
-            Vector3 novi_vektor = Quaternion.AngleAxis(15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.DrawLine(GameObject.Find("Igrac").transform.position, novi_vektor, Color.red, 2);
-
-
-            trenutnaEnergija--;
-            OsvjeziEnergiju();
-        }
-    }
-
-    //mod 1
-    private void PucajZraku()
-    {
-        //do stuff make zap
-        OsvjeziEnergiju();
-    }
-
-    //mod 2
-    private void PucajRepetitor()
-    {
-        //mozda se stvori gameobject sa skriptom koja puca burst i unisti se kada zavrsi
-        //ovdje bi se samo provjeravalo da li postoji gameobject koji puca taj određeni tip oruzja (u ovom slucaju burst - repetitor)
-        if (trenutnaEnergija > 2)
-        {
-            GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-            projektil.name = "Projektil-repetitor";
-            trenutnaEnergija -= 2;
-            OsvjeziEnergiju();
-        }
-    }
-
-    //mod 3
-    private void PucajSacmu()
-    {
-        //do stuff make kerblam
-        OsvjeziEnergiju();
-    }
-
     private void PucajBombu()
     {
         //do stuff make skadsoosh
@@ -223,6 +183,67 @@ public class Kontrola : MonoBehaviour
             //da li treba biti gameObject u sredini?
             //Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
 
+        }
+    }
+
+    private void PucajKuglu()
+    {
+        GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+        Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+
+        //test scatter vektora za sacmu
+        /*
+        Debug.DrawLine(GameObject.Find("Igrac").transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.white, 2);
+        Vector3 novi_vektor = Quaternion.AngleAxis(15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.DrawLine(GameObject.Find("Igrac").transform.position, novi_vektor, Color.red, 2);
+        */
+    }
+
+    IEnumerator PucajRepetitor()
+    {
+        Vector2 igrac = GameObject.Find("Igrac").transform.position;
+
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+            Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    private void PucajSacmu()
+    {
+        GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+        Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+
+        Vector2 novi_vektor = Quaternion.AngleAxis(15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+        projektil.GetComponent<Rigidbody2D>().velocity = (novi_vektor - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+
+        novi_vektor = Quaternion.AngleAxis(-15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+        projektil.GetComponent<Rigidbody2D>().velocity = (novi_vektor - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+    }
+
+    private void PucajZraku()
+    {
+
+    }
+
+    public void PromjeniMod(int mod)
+    {
+        if (modPucanja == mod && snagaPucanja < 3)
+        {
+            snagaPucanja++;
+        }
+        else if (modPucanja != mod)
+        {
+            modPucanja = mod;
+            snagaPucanja = 1;
+            trenutnaEnergija = maxEnergija;
         }
     }
 }
