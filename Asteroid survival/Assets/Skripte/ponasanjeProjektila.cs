@@ -5,8 +5,8 @@ using UnityEngine;
 public class ponasanjeProjektila : MonoBehaviour
 {
     private float TTK = 2f;
+    private int zdravlje = 1;
 
-    // Update is called once per frame
     void Update()
     {
         TTK -= Time.deltaTime;
@@ -16,8 +16,22 @@ public class ponasanjeProjektila : MonoBehaviour
         }
     }
 
+    public void SmanjiZdravlje()
+    {
+        zdravlje--;
+        if (zdravlje == 0)
+        {
+            UnistiProjektil();
+        }
+    }
+
     public void UnistiProjektil()
     {
         Destroy(gameObject);
+    }
+
+    public void PromjeniZdravlje(int novoZdravlje)
+    {
+        zdravlje = novoZdravlje;
     }
 }

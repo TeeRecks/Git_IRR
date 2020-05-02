@@ -33,11 +33,6 @@ public class Master : MonoBehaviour
         plocaBodova.text = bodovi.ToString();
     }
 
-    public void StvoriPickup(int pickup)
-    {
-
-    }
-
     public void Meni()
     {
         PlayerPrefs.SetInt("bodovi", 0);

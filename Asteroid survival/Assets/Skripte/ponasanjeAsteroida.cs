@@ -7,7 +7,9 @@ public class ponasanjeAsteroida : MonoBehaviour
     private Vector2 pozicija;
     private float brzinaAsteroida = 5f;
     private float TTK = 7f;
-    private float dropChance = 0.03f;
+
+    public float dropChance = 0.1f;
+    public GameObject pickup;
 
     private Master master;
 
@@ -39,29 +41,24 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-
-        //+bodovi
-
-
-        //šansa drop powerup
-        if (Random.value < dropChance)
-        {
-            int odabirPickup = Random.Range(0, 7);
-            master.StvoriPickup(odabirPickup);
-        }
-
         if (collision.GetComponent<ponasanjeProjektila>() != null)
         {
             ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
-            //dodaj 20
+
+            //šansa drop powerup
+            if (Random.value <= dropChance)
+            {
+                Instantiate(pickup, transform.position, Quaternion.identity);
+            }
+
+            //dodaj 100
             master.UvecajBodove(100);
-            projektil.UnistiProjektil();
+            projektil.SmanjiZdravlje();
         }
         if (collision.GetComponent<ponasanjeStita>() != null)
         {
             ponasanjeStita stit = collision.gameObject.GetComponent<ponasanjeStita>();
-            //dodaj 5
+            //dodaj 15
             master.UvecajBodove(15);
             stit.SmanjiStit();
         }

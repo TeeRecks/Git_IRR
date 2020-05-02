@@ -10,38 +10,39 @@ public class Kontrola : MonoBehaviour
     public GameObject prijateljskiProjektil;
     private float brzinaProjektila = 10f;
 
-    public Image kuglaSprite;
-    public Image zrakaSprite;
-    public Image repetitorSprite;
-    public Image sacmaSprite;
+    public Sprite[] mod_UI;
+    private int modPucanja = 0;
+    private int snagaPucanja = 1;
 
-    public int maxEnergija = 10;
-    public int trenutnaEnergija = 10;
+    public int maxEnergija = 20;
+    private int trenutnaEnergija;
     public float brzinaPunjenjaEnergije = 1f;
     private Image energijaI;
     private Text energijaT;
 
-    private int modPucanja = 0;
-    private int snagaPucanja = 1;
-    private int cijenaPucanja = 1;
-
     private int maxZdravlje = 4;
-    private int trenutnoZdravlje = 4;
+    private int trenutnoZdravlje;
     private Image zdravljeI;
     private Text zdravljeT;
 
     private int maxBombi = 5;
-    private int brojBombi = 1;
+    private int trenutnoBombi = 1;
     private Text bombeT;
 
     private float vrijeme = 0;
 
     private Master master;
 
+    private Image bljesakBombe;
+
     // Start is called before the first frame update
     void Start()
     {
-        //----treba updateati bar sa hp-om, bombama... energija je napravljen
+        trenutnaEnergija = maxEnergija;
+        trenutnoZdravlje = maxZdravlje;
+
+        bljesakBombe = GameObject.Find("BljesakBombe").GetComponent<Image>();
+
         energijaI = GameObject.Find("ENERGYbar").GetComponent<Image>();
         energijaT = GameObject.Find("ENERGYvrijednost").GetComponent<Text>();
         OsvjeziEnergiju();
@@ -54,6 +55,8 @@ public class Kontrola : MonoBehaviour
         OsvjeziBombe();
 
         master = GameObject.Find("Master").GetComponent<Master>();
+
+        GameObject.Find("TYPEslika").GetComponent<Image>().sprite = mod_UI[0];
 
         //testiranje mijenjanje boje
         //GameObject.Find("testP").GetComponent<Renderer>().material.color = Color.yellow;
@@ -92,10 +95,10 @@ public class Kontrola : MonoBehaviour
         }
 
         //m1 pucanje
-        if (Input.GetKeyDown(KeyCode.Mouse0) && trenutnaEnergija >= cijenaPucanja && GameObject.Find("Pucanje") == null)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && trenutnaEnergija >= snagaPucanja && GameObject.Find("Pucanje") == null)
         {
-            
-            trenutnaEnergija -= cijenaPucanja;
+
+            trenutnaEnergija -= snagaPucanja;
             OsvjeziEnergiju();
             switch (modPucanja)
             {
@@ -111,12 +114,12 @@ public class Kontrola : MonoBehaviour
                     }
                 case 2:
                     {
-                        StartCoroutine(PucajRepetitor());
+                        PucajSacmu();
                         break;
                     }
                 case 3:
                     {
-                        PucajSacmu();
+                        StartCoroutine(PucajRepetitor());
                         break;
                     }
                 default:
@@ -125,15 +128,6 @@ public class Kontrola : MonoBehaviour
                         break;
                     }
             }
-
-
-            //dodati vise vrsta napada..ball, x second beam, burst, shotgun (spread)
-            //mozda svaki sa vise (oko 3) jacine ovisno koliko se istih upgradeova pokupi
-            //ball - pocetna?, mijenja se velicina ili mozda koliko asteroida moze unistiti prije nego nestane (2, 4, 6)? ili kombinacija oba?
-            //x second beam - 0.2, 0.5, 1.0 sekunda
-            //burst - 2, 4, 6 loptica jedna za drugom
-            //shotgun - 3, 5, 7 loptica jedna do druge
-
         }
 
         //m2 pucanje
@@ -161,16 +155,54 @@ public class Kontrola : MonoBehaviour
         zdravljeT.text = trenutnoZdravlje.ToString();
     }
 
+    private void NapuniZdravlje()
+    {
+        trenutnoZdravlje = maxZdravlje;
+        OsvjeziZdravlje();
+    }
+
     private void OsvjeziBombe()
     {
-        bombeT.text = brojBombi.ToString();
+        bombeT.text = trenutnoBombi.ToString();
     }
 
     private void PucajBombu()
     {
-        //do stuff make skadsoosh
-        brojBombi--;
+        //da li treba biti gameObject u sredini?
+        Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
+
+        //unisti sve meteore
+        foreach (Transform child in direktor.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        StartCoroutine(Bljesak());
+        direktor.PauzirajMeteore();
+
+        if (trenutnoBombi > 0) trenutnoBombi--;
         OsvjeziBombe();
+    }
+
+    private void DodajBombu()
+    {
+        if (trenutnoBombi < maxBombi)
+        {
+            trenutnoBombi++;
+            OsvjeziBombe();
+        }
+    }
+
+    private IEnumerator Bljesak()
+    {
+        bljesakBombe.color = new Color(1, 1, 1, 1);
+        float alpha = bljesakBombe.GetComponent<Image>().color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 3.5f)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 0, t));
+            bljesakBombe.GetComponent<Image>().color = newColor;
+            yield return null;
+        }
     }
 
     public void SmanjiZdravlje()
@@ -180,17 +212,17 @@ public class Kontrola : MonoBehaviour
         if (trenutnoZdravlje == 0)
         {
             master.Kraj();
-            //da li treba biti gameObject u sredini?
-            //Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
-
         }
     }
 
     private void PucajKuglu()
     {
         GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
+        projektil.transform.localScale = new Vector2(2 * snagaPucanja, 2 * snagaPucanja);
         Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+
+        projektil.GetComponent<ponasanjeProjektila>().PromjeniZdravlje(snagaPucanja * 2);
 
         //test scatter vektora za sacmu
         /*
@@ -204,7 +236,7 @@ public class Kontrola : MonoBehaviour
     {
         Vector2 igrac = GameObject.Find("Igrac").transform.position;
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < (2 * snagaPucanja); i++)
         {
             GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
             Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -215,17 +247,30 @@ public class Kontrola : MonoBehaviour
 
     private void PucajSacmu()
     {
+        InstancirajSacmu(0);
+
+        InstancirajSacmu(7);
+        InstancirajSacmu(-7);
+
+        if (snagaPucanja > 1)
+        {
+            InstancirajSacmu(14);
+            InstancirajSacmu(-14);
+        }
+
+        if (snagaPucanja > 2)
+        {
+            InstancirajSacmu(21);
+            InstancirajSacmu(-21);
+        }
+    }
+
+    private void InstancirajSacmu(int kut)
+    {
+        Vector2 ciljnik = Quaternion.AngleAxis(kut, new Vector3(transform.position.x, transform.position.y, 1)) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
         GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-        Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
-
-        Vector2 novi_vektor = Quaternion.AngleAxis(15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-        projektil.GetComponent<Rigidbody2D>().velocity = (novi_vektor - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
-
-        novi_vektor = Quaternion.AngleAxis(-15, Vector3.forward) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
-        projektil.GetComponent<Rigidbody2D>().velocity = (novi_vektor - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+        Debug.Log(ciljnik + "##################" + new Vector2(transform.position.x, transform.position.y));
     }
 
     private void PucajZraku()
@@ -235,15 +280,52 @@ public class Kontrola : MonoBehaviour
 
     public void PromjeniMod(int mod)
     {
-        if (modPucanja == mod && snagaPucanja < 3)
+        //0-3 - mod pucanja
+        if (mod >= 0 && mod <=3)
         {
-            snagaPucanja++;
+            if (modPucanja == mod && snagaPucanja < 3)
+            {
+                snagaPucanja++;
+            }
+            else if (snagaPucanja == 3)
+            {
+                trenutnaEnergija = maxEnergija;
+            }
+            else if (modPucanja != mod)
+            {
+                modPucanja = mod;
+                snagaPucanja = 1;
+                GameObject.Find("TYPEslika").GetComponent<Image>().sprite = mod_UI[mod];
+            }
         }
-        else if (modPucanja != mod)
+        else if (mod == 4)
         {
-            modPucanja = mod;
-            snagaPucanja = 1;
+            //4 - recharge
+            for(int indeks = 0; indeks < 4; indeks++)
+            {
+                transform.GetChild(indeks).GetComponent<ponasanjeStita>().NapuniStit();
+            }
             trenutnaEnergija = maxEnergija;
+        }
+        else if (mod == 5)
+        {
+            //5 - invulnerability
+            for (int indeks = 0; indeks < 4; indeks++)
+            {
+                ponasanjeStita stit = transform.GetChild(indeks).GetComponent<ponasanjeStita>();
+                stit.NapuniStit();
+                stit.StaviNeunistivost();
+            }
+        }
+        else if (mod == 6)
+        {
+            //6 - hp
+            NapuniZdravlje();
+        }
+        else if (mod == 7)
+        {
+            //7 - bombe
+            DodajBombu();
         }
     }
 }
