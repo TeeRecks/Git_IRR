@@ -13,26 +13,22 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private Master master;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        //----pronaci vektor i kretati se u smjeru pozicije igraca kada se asteroid stvoren----
         pozicija = GameObject.Find("Igrac").transform.position;
         GetComponent<Rigidbody2D>().velocity = (pozicija - VratiVector2(transform.position)).normalized * brzinaAsteroida;
         master = GameObject.Find("Master").GetComponent<Master>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //----unistiti asteroid kada mu istekne vrijeme... 5-6 sekundi?----
         TTK -= Time.deltaTime;
         if (TTK <= 0)
         {
             UnistiAsteroid();
         }
 
-        //----updateati poziciju sve dok ne istekne vrijeme asteroidu----
         //transform.position += pozicija * brzinaAsteroida * Time.deltaTime;                                        KRIVO
         //transform.position += (pozicija - transform.position).normalized * brzinaAsteroida * Time.deltaTime;      KRIVO
         //GetComponent<Rigidbody2D>().velocity = (pozicija).normalized * 5;                                         SKORO - ne radi ako igrac stoji na 0,0 - ne baca u dobru stranu
@@ -67,14 +63,14 @@ public class ponasanjeAsteroida : MonoBehaviour
             Kontrola igrac = collision.gameObject.GetComponent<Kontrola>();
             igrac.SmanjiZdravlje();
         }
+        //vrlo vjerovatno nije točno kad se odjednom 2 asteroida unište, ali dovoljno dobro
+        GlobalneVarijable.Asteroidi++;
         UnistiAsteroid();
     }
 
     private void UnistiAsteroid()
     {
-
         Destroy(gameObject);
-        //----stvori efekt eksplozije ili prah *puf* + zvuk----
     }
 
     private Vector2 VratiVector2(Vector3 vektor)

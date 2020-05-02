@@ -11,7 +11,7 @@ public class Master : MonoBehaviour
 
     private float vrijeme;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         if (SceneManager.GetActiveScene().name == "Igra")
@@ -21,7 +21,6 @@ public class Master : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         vrijeme += Time.deltaTime;
@@ -35,7 +34,7 @@ public class Master : MonoBehaviour
 
     public void Meni()
     {
-        PlayerPrefs.SetInt("bodovi", 0);
+        GlobalneVarijable.Bodovi = 0;
         SceneManager.LoadScene("Meni");
     }
 
@@ -47,8 +46,11 @@ public class Master : MonoBehaviour
     public void Kraj()
     {
         int konacniBodovi = (Mathf.FloorToInt(vrijeme) * 5) + bodovi;
-        PlayerPrefs.SetInt("bodovi", konacniBodovi);
-        PlayerPrefs.SetInt("vrijeme", Mathf.FloorToInt(vrijeme));
+        //PlayerPrefs.SetInt("bodovi", konacniBodovi);
+        GlobalneVarijable.Bodovi = bodovi;
+        //PlayerPrefs.SetInt("vrijeme", Mathf.FloorToInt(vrijeme));
+        GlobalneVarijable.Vrijeme = Mathf.FloorToInt(vrijeme);
+
         SceneManager.LoadScene("Kraj");
     }
 

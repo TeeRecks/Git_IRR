@@ -9,22 +9,17 @@ public class Kontroler_Igre : MonoBehaviour
     private GameObject igrac;
     private Vector3 pozicija;
     private float brzinaSpawnanjaAsteroida = 2f; //po sekundi
-    private float udaljenost = 11;
+    private float udaljenost = 12;
 
     private bool pauzirano = false;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        // postavljanje brzine spawnanja asteroida
         igrac = GameObject.Find("Igrac");
         brzinaSpawnanjaAsteroida = 1 / brzinaSpawnanjaAsteroida;
-
-        // postavljanje početnog HP-a igrača
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         brojac += Time.deltaTime;

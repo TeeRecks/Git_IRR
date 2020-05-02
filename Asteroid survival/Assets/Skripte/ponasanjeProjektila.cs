@@ -7,6 +7,7 @@ public class ponasanjeProjektila : MonoBehaviour
     private float TTK = 2f;
     private int zdravlje = 1;
 
+
     void Update()
     {
         TTK -= Time.deltaTime;

@@ -8,6 +8,7 @@ public class pozadinaParallax : MonoBehaviour
     public GameObject kamera;
     public float parallaxEfekt;
 
+
     void Start()
     {
         startPozicijaX = transform.position.x;

@@ -13,7 +13,7 @@ public class ponasanjeStita : MonoBehaviour
     private float TTK_neunistivost = 8f;
     private float TTK = 0f;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -21,7 +21,6 @@ public class ponasanjeStita : MonoBehaviour
         rend.material.color = Color.green;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (neunistivost)
@@ -89,20 +88,21 @@ public class ponasanjeStita : MonoBehaviour
 
     public void SmanjiStit()
     {
-        trenutnoZdravlje--;
-        OsvjeziStit();
-        if (trenutnoZdravlje == 0)
+        if (!neunistivost)
         {
-            gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+            trenutnoZdravlje--;
+            OsvjeziStit();
+            if (trenutnoZdravlje == 0)
+            {
+                gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+            }
         }
     }
 
     public void NapuniStit()
     {
         trenutnoZdravlje = maxZdravlje;
+        gameObject.GetComponent<EdgeCollider2D>().enabled = true;
         OsvjeziStit();
     }
-
-    //on trigger ili collision ubaciti iz Update()
-    //koristiti Color.Lerp(Color.)
 }

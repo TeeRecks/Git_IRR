@@ -63,10 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Skripte\GlobalneVarijable.cs" />
     <Compile Include="Assets\Skripte\KonacanRezultat.cs" />
     <Compile Include="Assets\Skripte\Kontrola.cs" />
     <Compile Include="Assets\Skripte\Kontroler_Igre.cs" />
     <Compile Include="Assets\Skripte\Master.cs" />
+    <Compile Include="Assets\Skripte\meniHover.cs" />
+    <Compile Include="Assets\Skripte\meniKretnja.cs" />
     <Compile Include="Assets\Skripte\ponasanjeAsteroida.cs" />
     <Compile Include="Assets\Skripte\ponasanjePickup.cs" />
     <Compile Include="Assets\Skripte\ponasanjeProjektila.cs" />

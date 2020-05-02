@@ -19,6 +19,7 @@ public class ponasanjePickup : MonoBehaviour
     //6 - hp / repair
     //7 - bomb
 
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -56,7 +57,6 @@ public class ponasanjePickup : MonoBehaviour
         igrac.PromjeniMod(tipPickup);
         ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
         projektil.SmanjiZdravlje();
-        Debug.Log("test");
     }
 
     private void UnistiPickup()

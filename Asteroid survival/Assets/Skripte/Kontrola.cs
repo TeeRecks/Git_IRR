@@ -35,7 +35,7 @@ public class Kontrola : MonoBehaviour
 
     private Image bljesakBombe;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         trenutnaEnergija = maxEnergija;
@@ -57,12 +57,8 @@ public class Kontrola : MonoBehaviour
         master = GameObject.Find("Master").GetComponent<Master>();
 
         GameObject.Find("TYPEslika").GetComponent<Image>().sprite = mod_UI[0];
-
-        //testiranje mijenjanje boje
-        //GameObject.Find("testP").GetComponent<Renderer>().material.color = Color.yellow;
     }
 
-    // Update is called once per frame
     void Update()
     {
         vrijeme += Time.deltaTime;
@@ -168,12 +164,11 @@ public class Kontrola : MonoBehaviour
 
     private void PucajBombu()
     {
-        //da li treba biti gameObject u sredini?
         Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
 
-        //unisti sve meteore
         foreach (Transform child in direktor.transform)
         {
+            GlobalneVarijable.Asteroidi++;
             GameObject.Destroy(child.gameObject);
         }
 
@@ -270,7 +265,7 @@ public class Kontrola : MonoBehaviour
         Vector2 ciljnik = Quaternion.AngleAxis(kut, new Vector3(transform.position.x, transform.position.y, 1)) * Camera.main.ScreenToWorldPoint(Input.mousePosition);
         GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
         projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
-        Debug.Log(ciljnik + "##################" + new Vector2(transform.position.x, transform.position.y));
+        //Debug.Log(ciljnik + "##################" + new Vector2(transform.position.x, transform.position.y));
     }
 
     private void PucajZraku()

@@ -285,7 +285,6 @@ RectTransform:
   - {fileID: 1424891606}
   - {fileID: 990931079}
   - {fileID: 1761721550}
-  - {fileID: 1246328591}
   - {fileID: 983576314}
   - {fileID: 788126914}
   m_Father: {fileID: 0}
@@ -404,7 +403,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 423886519}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -556,7 +555,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 423886519}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -679,89 +678,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990931078}
-  m_CullTransparentMesh: 0
---- !u!1 &1246328590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1246328591}
-  - component: {fileID: 1246328593}
-  - component: {fileID: 1246328592}
-  m_Layer: 5
-  m_Name: KONTROLE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1246328591
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246328590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 423886519}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -215.6, y: -183.8}
-  m_SizeDelta: {x: 331.2, y: 285.7}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1246328592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246328590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 2
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'WASD & ARROWS - kretnja
-
-    LMB (M1) - pucaj
-
-    RMB (M2) - bomba
-
-    ESC - exit game'
---- !u!222 &1246328593
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246328590}
   m_CullTransparentMesh: 0
 --- !u!1 &1361700470
 GameObject:
@@ -1275,7 +1191,7 @@ RectTransform:
   m_GameObject: {fileID: 1761721549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 423886519}
   m_RootOrder: 9
@@ -1553,17 +1469,17 @@ PrefabInstance:
     - target: {fileID: 4888027646776731951, guid: ab74346cac8107645b8ffbd79172ff85,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 221.3881
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4888027646776731951, guid: ab74346cac8107645b8ffbd79172ff85,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 257.42673
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4888027646776731951, guid: ab74346cac8107645b8ffbd79172ff85,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4888027646776731951, guid: ab74346cac8107645b8ffbd79172ff85,
         type: 3}

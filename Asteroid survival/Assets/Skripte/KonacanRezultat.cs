@@ -7,11 +7,14 @@ public class KonacanRezultat : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Text>().text = PlayerPrefs.GetInt("bodovi").ToString();
+        int konacniBodovi = GlobalneVarijable.Bodovi + (GlobalneVarijable.Vrijeme * 5);
+        GameObject.Find("VrijednostRezultata").GetComponent<Text>().text = GlobalneVarijable.Bodovi.ToString();
+        GameObject.Find("VrijemeVrijednost").GetComponent<Text>().text = GlobalneVarijable.Vrijeme.ToString();
+        GameObject.Find("UnistenoAsteroidaVrijednost").GetComponent<Text>().text = GlobalneVarijable.Asteroidi.ToString();
     }
 
     void Update()
     {
-        //mozda da se mijenja boje?
+        //mozda da se mijenjaju boje?
     }
 }
