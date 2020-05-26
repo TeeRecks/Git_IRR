@@ -13,6 +13,9 @@ public class ponasanjeStita : MonoBehaviour
     private float TTK_neunistivost = 8f;
     private float TTK = 0f;
 
+    public AudioClip stitDolje;
+    public AudioClip stitPun;
+    public AudioClip stitPogodjen;
 
     void Start()
     {
@@ -94,7 +97,12 @@ public class ponasanjeStita : MonoBehaviour
             OsvjeziStit();
             if (trenutnoZdravlje == 0)
             {
+                StitDoljeAudio();
                 gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+            }
+            else
+            {
+                StitPogodjenAudio();
             }
         }
     }
@@ -103,6 +111,20 @@ public class ponasanjeStita : MonoBehaviour
     {
         trenutnoZdravlje = maxZdravlje;
         gameObject.GetComponent<EdgeCollider2D>().enabled = true;
+        StitPunAudio();
         OsvjeziStit();
+    }
+
+    private void StitDoljeAudio()
+    {
+        AudioSource.PlayClipAtPoint(stitDolje, transform.position);
+    }
+    private void StitPunAudio()
+    {
+        AudioSource.PlayClipAtPoint(stitPun, transform.position);
+    }
+    private void StitPogodjenAudio()
+    {
+        AudioSource.PlayClipAtPoint(stitPogodjen, transform.position);
     }
 }

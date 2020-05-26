@@ -30,7 +30,7 @@ public class pozadinaParallax : MonoBehaviour
 
         if (rel_X > startPozicijaX + sirina) startPozicijaX += sirina;
         else if (rel_X < startPozicijaX - sirina) startPozicijaX -= sirina;
-        else if (rel_Y > startPozicijaY + sirina) startPozicijaY += visina;
-        else if (rel_Y < startPozicijaY - sirina) startPozicijaY -= visina;
+        else if (rel_Y > startPozicijaY + visina) startPozicijaY += visina;
+        else if (rel_Y < startPozicijaY - visina) startPozicijaY -= visina;
     }
 }

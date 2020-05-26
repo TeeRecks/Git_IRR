@@ -28,6 +28,7 @@ public class Kontrola : MonoBehaviour
     private int maxBombi = 5;
     private int trenutnoBombi = 1;
     private Text bombeT;
+    private float trajeEksplozija;
 
     private float vrijeme = 0;
 
@@ -35,6 +36,9 @@ public class Kontrola : MonoBehaviour
 
     private Image bljesakBombe;
 
+    public AudioClip pucanje;
+    public AudioClip igracPogodjen;
+    public AudioClip bomba;
 
     void Start()
     {
@@ -70,6 +74,10 @@ public class Kontrola : MonoBehaviour
                 trenutnaEnergija++;
                 OsvjeziEnergiju();
             }
+        }
+        if (trajeEksplozija > 0)
+        {
+            trajeEksplozija -= Time.deltaTime; 
         }
 
         //kretnja WASD i strelice
@@ -164,19 +172,23 @@ public class Kontrola : MonoBehaviour
 
     private void PucajBombu()
     {
-        Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
-
-        foreach (Transform child in direktor.transform)
+        if (trenutnoBombi > 0 && trajeEksplozija <= 0)
         {
-            GlobalneVarijable.Asteroidi++;
-            GameObject.Destroy(child.gameObject);
+            trajeEksplozija = 5f;
+            trenutnoBombi--;
+            BombaAudio();
+            Kontroler_Igre direktor = GameObject.Find("Direktor").gameObject.GetComponent<Kontroler_Igre>();
+
+            foreach (Transform child in direktor.transform)
+            {
+                GlobalneVarijable.Asteroidi++;
+                GameObject.Destroy(child.gameObject);
+            }
+
+            StartCoroutine(Bljesak());
+            direktor.PauzirajMeteore();
+            OsvjeziBombe();
         }
-
-        StartCoroutine(Bljesak());
-        direktor.PauzirajMeteore();
-
-        if (trenutnoBombi > 0) trenutnoBombi--;
-        OsvjeziBombe();
     }
 
     private void DodajBombu()
@@ -204,6 +216,7 @@ public class Kontrola : MonoBehaviour
     {
         trenutnoZdravlje--;
         OsvjeziZdravlje();
+        IgracPogodjenAudio();
         if (trenutnoZdravlje == 0)
         {
             master.Kraj();
@@ -218,6 +231,7 @@ public class Kontrola : MonoBehaviour
         projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
 
         projektil.GetComponent<ponasanjeProjektila>().PromjeniZdravlje(snagaPucanja * 2);
+        PucanjeAudio();
 
         //test scatter vektora za sacmu
         /*
@@ -236,6 +250,7 @@ public class Kontrola : MonoBehaviour
             GameObject projektil = Instantiate(prijateljskiProjektil, transform.position, Quaternion.identity);
             Vector2 ciljnik = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             projektil.GetComponent<Rigidbody2D>().velocity = (ciljnik - new Vector2(transform.position.x, transform.position.y)).normalized * brzinaProjektila;
+            PucanjeAudio();
             yield return new WaitForSeconds(0.05f);
         }
     }
@@ -258,6 +273,7 @@ public class Kontrola : MonoBehaviour
             InstancirajSacmu(21);
             InstancirajSacmu(-21);
         }
+        PucanjeAudio();
     }
 
     private void InstancirajSacmu(int kut)
@@ -322,5 +338,20 @@ public class Kontrola : MonoBehaviour
             //7 - bombe
             DodajBombu();
         }
+    }
+
+    private void IgracPogodjenAudio()
+    {
+        AudioSource.PlayClipAtPoint(igracPogodjen, transform.position);
+    }
+
+    private void BombaAudio()
+    {
+        AudioSource.PlayClipAtPoint(bomba, transform.position);
+    }
+
+    private void PucanjeAudio()
+    {
+        AudioSource.PlayClipAtPoint(pucanje, transform.position);
     }
 }

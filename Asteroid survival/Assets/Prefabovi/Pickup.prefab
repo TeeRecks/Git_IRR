@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44ad30dc54a522408300ea8e91c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pokupi: {fileID: 8300000, guid: 2d9fea2c96f985e46a45b94d2ba49335, type: 3}
   slike:
   - {fileID: 21300000, guid: a9e1635187792d645aab2a17dc9bdffe, type: 3}
   - {fileID: 21300000, guid: 3d534c1becb9f3d4aaaef15553809d0a, type: 3}

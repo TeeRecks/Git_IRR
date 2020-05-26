@@ -13,6 +13,8 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private Master master;
 
+    public AudioClip asteroidUnisten;
+
 
     void Start()
     {
@@ -37,7 +39,7 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<ponasanjeProjektila>() != null)
+        if (collision.gameObject.CompareTag("projektil"))
         {
             ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
 
@@ -51,14 +53,14 @@ public class ponasanjeAsteroida : MonoBehaviour
             master.UvecajBodove(100);
             projektil.SmanjiZdravlje();
         }
-        if (collision.GetComponent<ponasanjeStita>() != null)
+        if (collision.gameObject.CompareTag("stit"))
         {
             ponasanjeStita stit = collision.gameObject.GetComponent<ponasanjeStita>();
             //dodaj 15
             master.UvecajBodove(15);
             stit.SmanjiStit();
         }
-        if (collision.GetComponent<Kontrola>() != null)
+        if (collision.gameObject.CompareTag("igrac"))
         {
             Kontrola igrac = collision.gameObject.GetComponent<Kontrola>();
             igrac.SmanjiZdravlje();
@@ -70,11 +72,17 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private void UnistiAsteroid()
     {
+        AsteroidAudio();
         Destroy(gameObject);
     }
 
     private Vector2 VratiVector2(Vector3 vektor)
     {
         return new Vector2(vektor.x, vektor.y);
+    }
+
+    private void AsteroidAudio()
+    {
+        AudioSource.PlayClipAtPoint(asteroidUnisten, transform.position);
     }
 }

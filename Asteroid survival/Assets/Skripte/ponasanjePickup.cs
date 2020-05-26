@@ -9,6 +9,8 @@ public class ponasanjePickup : MonoBehaviour
     private float TTK = 5f;
     private Renderer rend;
 
+    public AudioClip pokupi;
+
     public Sprite[] slike;
     //0 - kugla
     //1 - zraka / laser
@@ -53,6 +55,7 @@ public class ponasanjePickup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         UnistiPickup();
+        PokupiAudio();
         Kontrola igrac = GameObject.Find("Igrac").GetComponent<Kontrola>();
         igrac.PromjeniMod(tipPickup);
         ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
@@ -62,5 +65,10 @@ public class ponasanjePickup : MonoBehaviour
     private void UnistiPickup()
     {
         Destroy(gameObject);
+    }
+
+    private void PokupiAudio()
+    {
+        AudioSource.PlayClipAtPoint(pokupi, transform.position);
     }
 }

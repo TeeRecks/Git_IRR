@@ -34,8 +34,9 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             case "Igraj":
                 {
-                    opis.text = "<b>Započni novu igru</b>\n\n" +
-                        "Pucaj po meteorima\n" +
+                    opis.fontSize = 45;
+                    opis.text = "<b>Pokreni novu igru</b>\n\n\n" +
+                        "Pucaj po meteorima\n\n" +
                         "i pokušaj preživjeti što dulje";
 
                     horizontalnaCrta.transform.localPosition = new Vector2(-120, 0);
@@ -45,22 +46,24 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 }
             case "NacinIgranja":
                 {
-                    opis.text = "<b><i>M1 (LMB)</i></b> - pucaj primarno oružje\n" +
-                        "<b><i>M2 (RMB)</i></b> - iskoristi bombu ako postane prenapeto\n" +
-                        "<b><i>ESC</i></b> - izlaz iz igre\n" +
-                        "Pucaj u power-up da ga aktiviraš\n" +
-                        "<b><i>+100</i></b> - direktni pogodak\n" +
-                        "<b><i>+15</i></b> - pogodak sa štitom\n" +
-                        "<b><i>+5</i></b> - svake sekunde\n" +
+                    opis.fontSize = 32;
+                    opis.text = "<b><i>M1 (LMB)</i></b> - primarni napad\n\n" +
+                        "<b><i>M2 (RMB)</i></b> - iskoristi bombu ako postane prenapeto\n\n" +
+                        "<b><i>ESC</i></b> - izlaz iz igre\n\n" +
+                        "Pucaj u power-up da ga aktiviraš\n\n" +
+                        "<b><i>+100</i></b> - direktni pogodak\n\n" +
+                        "<b><i>+15</i></b> - pogodak sa štitom\n\n" +
+                        "<b><i>+5</i></b> - svake sekunde\n\n" +
                         "<b><i><color=red>Preživi!</color></i></b>";
 
-                    horizontalnaCrta.transform.localPosition = new Vector2(-60, -100);
-                    horizontalnaCrtaRect.sizeDelta = new Vector2(62, horizontalnaCrtaRect.sizeDelta.y);
+                    horizontalnaCrta.transform.localPosition = new Vector2(-110, -100);
+                    horizontalnaCrtaRect.sizeDelta = new Vector2(162, horizontalnaCrtaRect.sizeDelta.y);
                     horizontalnaCrtaBoja.color = vertikalnaCrtaBoja.color = new Color(1, 1, 1, 1);
                     break;
                 }
             case "Izlaz":
                 {
+                    opis.fontSize = 60;
                     opis.text = "Izlaz iz igre";
 
                     horizontalnaCrta.transform.localPosition = new Vector2(-120, -200);
