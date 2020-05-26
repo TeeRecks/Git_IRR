@@ -13,6 +13,10 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Image horizontalnaCrtaBoja, vertikalnaCrtaBoja;
     private string gumbNaziv;
 
+    private string igrajOpis;
+    private string nacinOpis;
+    private string izlazOpis;
+
 
     void Start()
     {
@@ -26,6 +30,19 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         horizontalnaCrtaBoja.color = vertikalnaCrtaBoja.color = new Color(1, 1, 1, 0);
         opis.text = "";
+        igrajOpis = "<b>Pokreni novu igru</b>\n\n\n" +
+                        "Pucaj po meteorima\n\n" +
+                        "i pokušaj prezivjeti što dulje";
+        nacinOpis = "<b><i>M1 (LMB)</i></b> - primarni napad\n\n" +
+                        "<b><i>M2 (RMB)</i></b> - iskoristi bombu ako postane prenapeto\n\n" +
+                        "<b><i>ESC</i></b> - izlaz iz igre\n\n" +
+                        "Pucaj u power-up da ga aktiviraš\n\n" +
+                        "Dobivaš...\n" +
+                        "<b><i>+100</i></b> - direktni pogodak\n\n" +
+                        "<b><i>+15</i></b> - pogodak sa štitom\n\n" +
+                        "<b><i>+5</i></b> - svake sekunde\n\n" +
+                        "<b><i><color=red>Prezivi!</color></i></b>";
+        izlazOpis = "Izlaz iz igre";
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,9 +52,7 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             case "Igraj":
                 {
                     opis.fontSize = 45;
-                    opis.text = "<b>Pokreni novu igru</b>\n\n\n" +
-                        "Pucaj po meteorima\n\n" +
-                        "i pokušaj prezivjeti što dulje";
+                    opis.text = igrajOpis;
 
                     horizontalnaCrta.transform.localPosition = new Vector2(-120, 118);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(182, horizontalnaCrtaRect.sizeDelta.y);
@@ -47,15 +62,7 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             case "NacinIgranja":
                 {
                     opis.fontSize = 32;
-                    opis.text = "<b><i>M1 (LMB)</i></b> - primarni napad\n\n" +
-                        "<b><i>M2 (RMB)</i></b> - iskoristi bombu ako postane prenapeto\n\n" +
-                        "<b><i>ESC</i></b> - izlaz iz igre\n\n" +
-                        "Pucaj u power-up da ga aktiviraš\n\n" +
-                        "Dobivaš...\n" +
-                        "<b><i>+100</i></b> - direktni pogodak\n\n" +
-                        "<b><i>+15</i></b> - pogodak sa štitom\n\n" +
-                        "<b><i>+5</i></b> - svake sekunde\n\n" +
-                        "<b><i><color=red>Prezivi!</color></i></b>";
+                    opis.text = nacinOpis;
 
                     horizontalnaCrta.transform.localPosition = new Vector2(-110, 18);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(162, horizontalnaCrtaRect.sizeDelta.y);
@@ -65,7 +72,7 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             case "Izlaz":
                 {
                     opis.fontSize = 60;
-                    opis.text = "Izlaz iz igre";
+                    opis.text = izlazOpis;
 
                     horizontalnaCrta.transform.localPosition = new Vector2(-120, -252);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(182, horizontalnaCrtaRect.sizeDelta.y);

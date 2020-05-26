@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ponasanjePickup : MonoBehaviour
 {
     private int tipPickup;
-    private float TTK = 5f;
+    private float TTK = 7f;
     private Renderer rend;
 
     public AudioClip pokupi;
@@ -34,6 +34,7 @@ public class ponasanjePickup : MonoBehaviour
         }
 
         GetComponent<SpriteRenderer>().sprite = slike[tipPickup];
+        GetComponent<Collider2D>().enabled = false;
 
         //Debug.Log("PICKUP - " + transform.position.x + ", " + transform.position.y);
     }
@@ -41,14 +42,17 @@ public class ponasanjePickup : MonoBehaviour
     void Update()
     {
         TTK -= Time.deltaTime;
+        if (TTK <= 6.5f)
+        {
+            GetComponent<Collider2D>().enabled = true;
+        }
+        if (TTK <= 2)
+        {
+            rend.material.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, -4), Mathf.PingPong(Time.time, 0.25f));
+        }
         if (TTK <= 0)
         {
             UnistiPickup();
-        }
-
-        if (TTK <= 2)
-        {
-            rend.material.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 1), Mathf.PingPong(Time.time, 1));
         }
     }
 

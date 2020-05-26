@@ -298,15 +298,15 @@ public class Kontrola : MonoBehaviour
             {
                 snagaPucanja++;
             }
-            else if (snagaPucanja == 3)
-            {
-                trenutnaEnergija = maxEnergija;
-            }
             else if (modPucanja != mod)
             {
                 modPucanja = mod;
                 snagaPucanja = 1;
                 GameObject.Find("TYPEslika").GetComponent<Image>().sprite = mod_UI[mod];
+            }
+            else if (snagaPucanja == 3)
+            {
+                trenutnaEnergija = maxEnergija;
             }
         }
         else if (mod == 4)
