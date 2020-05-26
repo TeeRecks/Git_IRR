@@ -74,7 +74,9 @@
     <Compile Include="Assets\Skripte\ponasanjePickup.cs" />
     <Compile Include="Assets\Skripte\ponasanjeProjektila.cs" />
     <Compile Include="Assets\Skripte\ponasanjeStita.cs" />
+    <Compile Include="Assets\Skripte\PonasanjeUnistenogBroda.cs" />
     <Compile Include="Assets\Skripte\pozadinaParallax.cs" />
+    <Compile Include="Assets\Skripte\SliderPromjena.cs" />
     <None Include="Assets\Font\Space.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Ivan/Desktop/FAKS/Izrada računalnih igara/Git_IRR/Asteroid survival/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

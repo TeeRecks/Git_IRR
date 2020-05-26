@@ -5,6 +5,7 @@ using UnityEngine;
 public static class GlobalneVarijable
 {
     private static int bodovi, vrijeme, asteroidi;
+    private static float volumen;
 
     public static int Bodovi
     {
@@ -22,5 +23,11 @@ public static class GlobalneVarijable
     {
         get { return asteroidi; }
         set { asteroidi = value; }
+    }
+
+    public static float Volumen
+    {
+        get { return volumen; }
+        set { volumen = value; }
     }
 }

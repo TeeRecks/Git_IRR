@@ -1113,6 +1113,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Master
       objectReference: {fileID: 0}
+    - target: {fileID: 4888027646776731950, guid: ab74346cac8107645b8ffbd79172ff85,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888027646776731950, guid: ab74346cac8107645b8ffbd79172ff85,
+        type: 3}
+      propertyPath: unisteniIgrac
+      value: 
+      objectReference: {fileID: 3761900223317901191, guid: 12423373b95ea3d45946b45b3bf2d57f,
+        type: 3}
     - target: {fileID: 4888027646776731951, guid: ab74346cac8107645b8ffbd79172ff85,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,13 +12,15 @@ public class Master : MonoBehaviour
     private float vrijeme;
 
     public AudioClip gameMuzika;
-    public float volumen = 0.5f;
     private AudioSource music;
+
+    public GameObject unisteniIgrac;
 
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Igra")
+        string scena = SceneManager.GetActiveScene().name;
+        if (scena == "Igra")
         {
             plocaBodova = GameObject.Find("SCORE").GetComponent<Text>();
             plocaBodova.text = "0";
@@ -26,9 +28,13 @@ public class Master : MonoBehaviour
             music = GetComponent<AudioSource>();
             music.clip = gameMuzika;
             music.loop = true;
-            Mathf.Clamp(volumen, 0f, 1f);
-            music.volume = volumen;
+            music.volume = GlobalneVarijable.Volumen;
             music.Play();
+        }
+        else if (scena == "Kraj")
+        {
+            //instanciraj i promjeni mu smjer
+            Instantiate(unisteniIgrac, new Vector3(-10, 10, 0), Quaternion.identity);
         }
     }
 
@@ -45,7 +51,6 @@ public class Master : MonoBehaviour
 
     public void Meni()
     {
-        music.Stop();
         GlobalneVarijable.Bodovi = 0;
         SceneManager.LoadScene("Meni");
     }
@@ -59,9 +64,7 @@ public class Master : MonoBehaviour
     {
         music.Stop();
         int konacniBodovi = (Mathf.FloorToInt(vrijeme) * 5) + bodovi;
-        //PlayerPrefs.SetInt("bodovi", konacniBodovi);
-        GlobalneVarijable.Bodovi = bodovi;
-        //PlayerPrefs.SetInt("vrijeme", Mathf.FloorToInt(vrijeme));
+        GlobalneVarijable.Bodovi = konacniBodovi;
         GlobalneVarijable.Vrijeme = Mathf.FloorToInt(vrijeme);
 
         SceneManager.LoadScene("Kraj");
@@ -69,7 +72,11 @@ public class Master : MonoBehaviour
 
     public void Izlaz()
     {
-        music.Stop();
         Application.Quit();
+    }
+
+    public void PromjeniVolumen()
+    {
+
     }
 }

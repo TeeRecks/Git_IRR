@@ -143,7 +143,7 @@ public class Kontrola : MonoBehaviour
         //ESC exit
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            master.Izlaz();
+            master.Kraj();
         }
     }
 

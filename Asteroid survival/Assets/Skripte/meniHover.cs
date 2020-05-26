@@ -37,9 +37,9 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     opis.fontSize = 45;
                     opis.text = "<b>Pokreni novu igru</b>\n\n\n" +
                         "Pucaj po meteorima\n\n" +
-                        "i pokušaj preživjeti što dulje";
+                        "i pokušaj prezivjeti što dulje";
 
-                    horizontalnaCrta.transform.localPosition = new Vector2(-120, 0);
+                    horizontalnaCrta.transform.localPosition = new Vector2(-120, 118);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(182, horizontalnaCrtaRect.sizeDelta.y);
                     horizontalnaCrtaBoja.color = vertikalnaCrtaBoja.color = new Color(1,1,1,1);
                     break;
@@ -51,12 +51,13 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                         "<b><i>M2 (RMB)</i></b> - iskoristi bombu ako postane prenapeto\n\n" +
                         "<b><i>ESC</i></b> - izlaz iz igre\n\n" +
                         "Pucaj u power-up da ga aktiviraš\n\n" +
+                        "Dobivaš...\n" +
                         "<b><i>+100</i></b> - direktni pogodak\n\n" +
                         "<b><i>+15</i></b> - pogodak sa štitom\n\n" +
                         "<b><i>+5</i></b> - svake sekunde\n\n" +
-                        "<b><i><color=red>Preživi!</color></i></b>";
+                        "<b><i><color=red>Prezivi!</color></i></b>";
 
-                    horizontalnaCrta.transform.localPosition = new Vector2(-110, -100);
+                    horizontalnaCrta.transform.localPosition = new Vector2(-110, 18);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(162, horizontalnaCrtaRect.sizeDelta.y);
                     horizontalnaCrtaBoja.color = vertikalnaCrtaBoja.color = new Color(1, 1, 1, 1);
                     break;
@@ -66,14 +67,9 @@ public class meniHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     opis.fontSize = 60;
                     opis.text = "Izlaz iz igre";
 
-                    horizontalnaCrta.transform.localPosition = new Vector2(-120, -200);
+                    horizontalnaCrta.transform.localPosition = new Vector2(-120, -252);
                     horizontalnaCrtaRect.sizeDelta = new Vector2(182, horizontalnaCrtaRect.sizeDelta.y);
                     horizontalnaCrtaBoja.color = vertikalnaCrtaBoja.color = new Color(1, 1, 1, 1);
-                    break;
-                }
-            default:
-                {
-                    opis.text = "Greška u meniHover.cs";
                     break;
                 }
         }

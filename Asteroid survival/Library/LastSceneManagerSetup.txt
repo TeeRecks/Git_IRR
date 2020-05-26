@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Igra.unity
+- path: Assets/Scene/Meni.unity
   isLoaded: 1
   isActive: 1
