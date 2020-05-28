@@ -1470,6 +1470,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Direktor
       objectReference: {fileID: 0}
+    - target: {fileID: 1251587509535267502, guid: 0b6e1bc1c907a4e47ab14adfa1e64e3a,
+        type: 3}
+      propertyPath: asteroid_prefab
+      value: 
+      objectReference: {fileID: 6525797620810726989, guid: d428157df895a3349bf372575916e582,
+        type: 3}
     - target: {fileID: 1251587509535267503, guid: 0b6e1bc1c907a4e47ab14adfa1e64e3a,
         type: 3}
       propertyPath: m_LocalPosition.x

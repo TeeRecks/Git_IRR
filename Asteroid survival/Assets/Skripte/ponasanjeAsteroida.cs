@@ -41,6 +41,7 @@ public class ponasanjeAsteroida : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("projektil"))
         {
+            AsteroidAudio();
             ponasanjeProjektila projektil = collision.gameObject.GetComponent<ponasanjeProjektila>();
 
             //šansa drop powerup
@@ -55,6 +56,7 @@ public class ponasanjeAsteroida : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("stit"))
         {
+            AsteroidAudio();
             ponasanjeStita stit = collision.gameObject.GetComponent<ponasanjeStita>();
             //dodaj 15
             master.UvecajBodove(15);
@@ -62,6 +64,7 @@ public class ponasanjeAsteroida : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("igrac"))
         {
+            AsteroidAudio();
             Kontrola igrac = collision.gameObject.GetComponent<Kontrola>();
             igrac.SmanjiZdravlje();
         }
@@ -72,7 +75,6 @@ public class ponasanjeAsteroida : MonoBehaviour
 
     private void UnistiAsteroid()
     {
-        AsteroidAudio();
         Destroy(gameObject);
     }
 
